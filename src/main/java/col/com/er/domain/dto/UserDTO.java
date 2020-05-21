@@ -1,13 +1,6 @@
-package col.com.er.domain;
+package col.com.er.domain.dto;
 
-import java.io.Serializable;
-
-/*
-This class is required for storing the username and password we recieve from the client.
-*/
-public class JwtRequest implements Serializable {
-
-    private static final long serialVersionUID = 5926468583005150707L;
+public class UserDTO {
 
     private String username;
     private String password;
@@ -19,32 +12,9 @@ public class JwtRequest implements Serializable {
     private String createdat;
     private String updatedat;
 
-    //need default constructor for JSON Parsing
-    public JwtRequest() {
-
-    }
-
-    /*
-    public JwtRequest(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
-    }
-    */
     
-    public JwtRequest(String username, String password, String registredpc, String registredPhase, String identificacion, String image, String termsandconditions, String createdat, String updatedat) {
-        this.username = username;
-        this.password = password;
-        this.registredpc = registredpc;
-        this.registredPhase = registredPhase;
-        this.identificacion = identificacion;
-        this.image = image;
-        this.termsandconditions = termsandconditions;
-        this.createdat = createdat;
-        this.updatedat = updatedat;
-    }
-
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -52,12 +22,11 @@ public class JwtRequest implements Serializable {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-
     }
 
     public String getRegistredpc() {
@@ -116,7 +85,5 @@ public class JwtRequest implements Serializable {
         this.updatedat = updatedat;
     }
 
-    
-    
-    
 }
+
