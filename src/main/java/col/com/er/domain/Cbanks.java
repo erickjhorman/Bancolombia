@@ -19,12 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "cbanks")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Cbanks.findAll", query = "SELECT c FROM Cbanks c"),
-    @NamedQuery(name = "Cbanks.findById", query = "SELECT c FROM Cbanks c WHERE c.id = :id"),
-    @NamedQuery(name = "Cbanks.findByName", query = "SELECT c FROM Cbanks c WHERE c.name = :name"),
-    @NamedQuery(name = "Cbanks.findByCreatedAt", query = "SELECT c FROM Cbanks c WHERE c.createdAt = :createdAt"),
-    @NamedQuery(name = "Cbanks.findByUpdateAt", query = "SELECT c FROM Cbanks c WHERE c.updateAt = :updateAt")})
+
 public class Cbanks implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,16 +28,19 @@ public class Cbanks implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "name")
+    
     private String name;
     @Basic(optional = false)
     @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "update_at")
