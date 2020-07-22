@@ -17,13 +17,6 @@ public class UserRoles implements Serializable {
     @Column(name = "iduserRoles")
     private Long idUsersRoles;
 
-    
-    @Column(name = "user_id")
-    private long userId;
-
-    @Column(name = "rol_id")
-    private int crolId;
-     
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -34,16 +27,15 @@ public class UserRoles implements Serializable {
     private Date updateAt;
 
     // Bi-directioanl many-to-one association to users
-    /*
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 
     // Bi-directioanl many-to-one association to rol
-     @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rol_id", referencedColumnName = "id")
-    private Crol crol;
-    */
+    private Crol roles;
+
     public UserRoles() {
     }
 

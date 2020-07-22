@@ -3,6 +3,7 @@ package col.com.er.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
@@ -21,7 +22,7 @@ public class Crol implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_rol")
+    @Column(name = "id")
     private Integer idRol;
     
     @Basic(optional = false)
@@ -42,9 +43,8 @@ public class Crol implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateAt;
     
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Users users;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roles")
+    private List<UserRoles> userRoles;
 
     public Crol() {
     }

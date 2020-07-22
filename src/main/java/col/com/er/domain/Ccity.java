@@ -47,8 +47,7 @@ public class Ccity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateAt;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
-    private List<Cdeparment> cdeparmentList;
+   
 
     public Ccity() {
     }

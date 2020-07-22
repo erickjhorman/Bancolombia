@@ -18,6 +18,13 @@ import lombok.Data;
 
 public class Users implements Serializable {
 
+      private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Long id;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "TermsAndConditions")
@@ -70,13 +77,8 @@ public class Users implements Serializable {
     private Date updateAt;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
-    private List<Crol> crolList;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Long id;
+    private List<UserRoles> userRoles;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private List<Client> clientList;
 
@@ -105,13 +107,6 @@ public class Users implements Serializable {
         return "col.com.er.domain.Users[ id=" + id + " ]";
     }
 
-    @XmlTransient
-    public List<Crol> getCrolList() {
-        return crolList;
-    }
-
-    public void setCrolList(List<Crol> crolList) {
-        this.crolList = crolList;
-    }
+ 
 
 }
