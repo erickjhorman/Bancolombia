@@ -23,7 +23,7 @@ public class Crol implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
-    private Integer idRol;
+    private long idRol;
     
     @Basic(optional = false)
     @NotNull

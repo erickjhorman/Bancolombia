@@ -32,7 +32,7 @@ public class UserRoles implements Serializable {
     private Users users;
 
     // Bi-directioanl many-to-one association to rol
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "rol_id", referencedColumnName = "id")
     private Crol roles;
 

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsersServiceImpl implements UsersService {
     
     @Autowired
-     private UserDao userDao;
+    private UserDao userDao;
      
     @Transactional(readOnly = true)
     @Override

@@ -39,19 +39,17 @@ public class Client implements Serializable {
     private Date birthDay;
 
     @Basic(optional = false)
-    @NotNull
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Basic(optional = false)
-    @NotNull
     @Column(name = "update_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateAt;
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Users users;
 
     @JoinColumn(name = "deparment_id", referencedColumnName = "id")
