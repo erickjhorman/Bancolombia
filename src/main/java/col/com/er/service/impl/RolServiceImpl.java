@@ -1,7 +1,7 @@
 package col.com.er.service.impl;
 
 import col.com.er.dao.CrolDao;
-import col.com.er.domain.Crol;
+import col.com.er.entity.Crol;
 import col.com.er.service.CrolService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

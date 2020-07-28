@@ -1,10 +1,10 @@
 package col.com.er.rest;
 
 import col.com.er.config.JwtTokenUtil;
-import col.com.er.domain.JwtRequest;
-import col.com.er.domain.JwtResponse;
-import col.com.er.domain.Users;
-import col.com.er.domain.dto.UserDTO;
+import col.com.er.entity.JwtRequest;
+import col.com.er.entity.JwtResponse;
+import col.com.er.entity.Users;
+import col.com.er.entity.dto.UserDTO;
 import col.com.er.service.JwtUserDetailsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

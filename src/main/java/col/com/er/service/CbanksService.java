@@ -1,6 +1,6 @@
 package col.com.er.service;
 
-import col.com.er.domain.Cbanks;
+import col.com.er.entity.Cbanks;
 import java.util.List;
 
 public interface CbanksService {

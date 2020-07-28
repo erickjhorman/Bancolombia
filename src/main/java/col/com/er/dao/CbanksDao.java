@@ -1,6 +1,6 @@
 package col.com.er.dao;
 
-import col.com.er.domain.Cbanks;
+import col.com.er.entity.Cbanks;
 import org.springframework.data.repository.CrudRepository;
 
 

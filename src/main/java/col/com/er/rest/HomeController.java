@@ -1,6 +1,6 @@
 package col.com.er.rest;
 
-import col.com.er.domain.Cbanks;
+import col.com.er.entity.Cbanks;
 import col.com.er.service.CbanksService;
 import lombok.extern.slf4j.Slf4j;
 import io.swagger.annotations.Api;

@@ -1,7 +1,7 @@
 package col.com.er.service.impl;
 
 import col.com.er.dao.UsersRolesDao;
-import col.com.er.domain.UserRoles;
+import col.com.er.entity.UserRoles;
 import col.com.er.service.UserRolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

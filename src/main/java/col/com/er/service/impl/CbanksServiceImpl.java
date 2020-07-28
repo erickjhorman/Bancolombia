@@ -1,7 +1,7 @@
 package col.com.er.service.impl;
 
 import col.com.er.dao.CbanksDao;
-import col.com.er.domain.Cbanks;
+import col.com.er.entity.Cbanks;
 import col.com.er.service.CbanksService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

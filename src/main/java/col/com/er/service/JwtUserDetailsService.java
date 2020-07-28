@@ -1,16 +1,23 @@
 package col.com.er.service;
 
 import col.com.er.dao.UserDao;
-import col.com.er.domain.Client;
-import col.com.er.domain.Crol;
-import col.com.er.domain.UserRoles;
-import col.com.er.domain.Users;
-import col.com.er.domain.dto.UserDTO;
+import col.com.er.entity.Answers;
+import col.com.er.entity.Client;
+import col.com.er.entity.ClientAnswers;
+import col.com.er.entity.Crol;
+import col.com.er.entity.Questions;
+import col.com.er.entity.UserRoles;
+import col.com.er.entity.Users;
+import col.com.er.entity.dto.QuestionAnswersDTO;
+import col.com.er.entity.dto.UserDTO;
+import col.com.er.service.impl.ClientAnswersImpl;
 import col.com.er.service.impl.ClientServiceImpl;
+import col.com.er.service.impl.QuestionsServiceImpl;
 import col.com.er.service.impl.RolServiceImpl;
 import col.com.er.service.impl.UserRolesServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +33,7 @@ when authenticating the user details provided by the user.
  */
 @Slf4j
 @Service
+@Log
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -44,7 +52,15 @@ public class JwtUserDetailsService implements UserDetailsService {
     ClientServiceImpl clientServiceImpl;
 
     @Autowired
+    ClientAnswersImpl clientAnswersImpl;
+
+    @Autowired
     private PasswordEncoder bcryptEncoder;
+
+    @Autowired
+    private QuestionsServiceImpl questionsServiceImpl;
+
+    Users newUser = new Users();
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -70,7 +86,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public Users save(UserDTO user) {
-        Users newUser = new Users();
+
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         newUser.setIdentification(user.getIdentificacion());
@@ -92,12 +108,76 @@ public class JwtUserDetailsService implements UserDetailsService {
 
         userRolesServiceImpl.save(userRoles);
 
+        saveToClientTable(user);
+
+        return newUser;
+    }
+
+    public List<Questions> FindQuestions() {
+        return questionsServiceImpl.listQuestions();
+    }
+
+    public void saveToClientTable(UserDTO user) {
+
         // To store the id of the current saved user in the client table 
         Client client = new Client();
         client.setUsers(newUser);
-        clientServiceImpl.guardar(client);
-        
-        return newUser;
+
+        List<ClientAnswers> clientAnswerList = new ArrayList();
+
+        user.getListQuestions()
+                .stream()
+                .forEach(question
+                        -> {
+                    ClientAnswers clientAnswers = new ClientAnswers();
+                    Answers answers = new Answers();
+                    Questions questions = new Questions();
+                    List<Questions> ListQuestions = FindQuestions();
+
+                    // getting the id of questions from database
+                    ListQuestions
+                            .stream()
+                            .forEach(q
+                                    -> {
+
+                                questions.setId(q.getId());
+
+                            });
+
+                    answers.setAnswer(question.getAnswer());
+
+                    clientAnswers.setQuestions(questions);
+                    clientAnswers.setAnswers(answers);
+                    clientAnswers.setClientes(client);
+
+                    clientAnswerList.add(clientAnswers);
+                });
+        clientAnswersImpl.saveAll(clientAnswerList);
+       
+
+        /*
+        for (QuestionAnswersDTO question : user.getListQuestions()) {
+            questions.setQuestion(question.getQuestion());
+            answers.setAnswer(question.getAnswer());
+        }
+         */
+//        List<ClientAnswers> clientAnswerList = new ArrayList();
+//
+//        for (int i = 0; i < user.getListQuestions().size(); i++) {
+//            ClientAnswers clientAnswers = new ClientAnswers();
+//            Answers answers = new Answers();
+//            Questions questions = new Questions();
+//            answers.setAnswer(user.getListQuestions().get(i).getAnswer());
+//            questions.setQuestion(user.getListQuestions().get(i).getQuestion());
+//
+//            clientAnswers.setAnswers(answers);
+//            clientAnswers.setQuestions(questions);
+//            clientAnswers.setClientes(client);
+//
+//            clientAnswerList.add(clientAnswers);
+//
+//        }
+//        clientAnswersImpl.saveAll(clientAnswerList);
     }
 
 }

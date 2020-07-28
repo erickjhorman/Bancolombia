@@ -2,7 +2,7 @@
 package col.com.er.service;
 
 
-import col.com.er.domain.Users;
+import col.com.er.entity.Users;
 import java.util.List;
 
 

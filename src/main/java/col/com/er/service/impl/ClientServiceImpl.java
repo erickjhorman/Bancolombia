@@ -1,7 +1,7 @@
 package col.com.er.service.impl;
 
 import col.com.er.dao.ClientDao;
-import col.com.er.domain.Client;
+import col.com.er.entity.Client;
 import col.com.er.service.ClientService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

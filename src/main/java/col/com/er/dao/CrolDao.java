@@ -1,7 +1,7 @@
 
 package col.com.er.dao;
 
-import col.com.er.domain.Crol;
+import col.com.er.entity.Crol;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

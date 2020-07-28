@@ -1,7 +1,7 @@
 
 package col.com.er.service;
 
-import col.com.er.domain.Client;
+import col.com.er.entity.Client;
 import java.util.List;
 
 public interface ClientService {
