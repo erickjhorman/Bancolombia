@@ -25,7 +25,7 @@ public class ClientAnswers implements Serializable {
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     private Questions questions;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "answer_id", referencedColumnName = "id")
     private Answers answers;
 

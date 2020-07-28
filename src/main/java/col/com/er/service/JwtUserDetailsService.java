@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /*
 JWTUserDetailsService implements the Spring Security UserDetailsService interface. It overrides the loadUserByUsername for fetching user details from the database using the username. 
@@ -60,8 +61,6 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private QuestionsServiceImpl questionsServiceImpl;
 
-    Users newUser = new Users();
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -85,16 +84,10 @@ public class JwtUserDetailsService implements UserDetailsService {
          */
     }
 
-    public Users save(UserDTO user) {
+    @Transactional()
+    public Users save(Users user, List<ClientAnswers> clientAnswerList) {
 
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setIdentification(user.getIdentificacion());
-        newUser.setImage(user.getImage());
-        newUser.setRegistedPhase(user.getRegistredPhase());
-        newUser.setRegisterdPC(user.getRegistredpc());
-        newUser.setRegistedPhase(user.getRegistredPhase());
-        newUser.setTermsAndConditions(user.getTermsandconditions());
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
 
         Crol crol = new Crol();
         crol.setIdRol(2);
@@ -104,80 +97,24 @@ public class JwtUserDetailsService implements UserDetailsService {
         // save the rol_id and user_id in userRoles table in casacade mode 
         UserRoles userRoles = new UserRoles();
         userRoles.setRoles(crol);
-        userRoles.setUsers(newUser);
+        userRoles.setUsers(user);
 
         userRolesServiceImpl.save(userRoles);
 
-        saveToClientTable(user);
-
-        return newUser;
-    }
-
-    public List<Questions> FindQuestions() {
-        return questionsServiceImpl.listQuestions();
-    }
-
-    public void saveToClientTable(UserDTO user) {
-
         // To store the id of the current saved user in the client table 
         Client client = new Client();
-        client.setUsers(newUser);
+        client.setUsers(user);
 
-        List<ClientAnswers> clientAnswerList = new ArrayList();
-
-        user.getListQuestions()
-                .stream()
-                .forEach(question
+        clientAnswerList.stream()
+                .forEach(clientAnswer
                         -> {
-                    ClientAnswers clientAnswers = new ClientAnswers();
-                    Answers answers = new Answers();
-                    Questions questions = new Questions();
-                    List<Questions> ListQuestions = FindQuestions();
 
-                    // getting the id of questions from database
-                    ListQuestions
-                            .stream()
-                            .forEach(q
-                                    -> {
+                    clientAnswer.setClientes(client);
 
-                                questions.setId(q.getId());
-
-                            });
-
-                    answers.setAnswer(question.getAnswer());
-
-                    clientAnswers.setQuestions(questions);
-                    clientAnswers.setAnswers(answers);
-                    clientAnswers.setClientes(client);
-
-                    clientAnswerList.add(clientAnswers);
                 });
         clientAnswersImpl.saveAll(clientAnswerList);
-       
 
-        /*
-        for (QuestionAnswersDTO question : user.getListQuestions()) {
-            questions.setQuestion(question.getQuestion());
-            answers.setAnswer(question.getAnswer());
-        }
-         */
-//        List<ClientAnswers> clientAnswerList = new ArrayList();
-//
-//        for (int i = 0; i < user.getListQuestions().size(); i++) {
-//            ClientAnswers clientAnswers = new ClientAnswers();
-//            Answers answers = new Answers();
-//            Questions questions = new Questions();
-//            answers.setAnswer(user.getListQuestions().get(i).getAnswer());
-//            questions.setQuestion(user.getListQuestions().get(i).getQuestion());
-//
-//            clientAnswers.setAnswers(answers);
-//            clientAnswers.setQuestions(questions);
-//            clientAnswers.setClientes(client);
-//
-//            clientAnswerList.add(clientAnswers);
-//
-//        }
-//        clientAnswersImpl.saveAll(clientAnswerList);
+        return user;
     }
 
 }

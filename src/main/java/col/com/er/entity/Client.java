@@ -19,15 +19,15 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    
     private Integer id;
 
     @Size(max = 15)
-    @Column(name = "firstName")
+    
     private String firstName;
 
     @Size(max = 15)
-    @Column(name = "LastName")
+    
     private String lastName;
 
     @Size(max = 15)

@@ -20,7 +20,7 @@ public class Questions implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     
-    private Integer id;
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
@@ -38,11 +38,11 @@ public class Questions implements Serializable {
     public Questions() {
     }
 
-    public Questions(Integer id) {
+    public Questions(Long id) {
         this.id = id;
     }
 
-    public Questions(Integer id, String question, Date createdAt, Date updateAt) {
+    public Questions(Long id, String question, Date createdAt, Date updateAt) {
         this.id = id;
         this.question = question;
         this.createdAt = createdAt;

@@ -5,6 +5,7 @@ import col.com.er.entity.JwtRequest;
 import col.com.er.entity.JwtResponse;
 import col.com.er.entity.Users;
 import col.com.er.entity.dto.UserDTO;
+import col.com.er.rest.request.UserRequest;
 import col.com.er.service.JwtUserDetailsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -63,8 +64,8 @@ public class JwtAuthenticationController {
 
      
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-       public ResponseEntity<?> saveUser(@RequestBody UserDTO  user) throws Exception {
-        return ResponseEntity.ok(userDetailsService.save(user));
+       public ResponseEntity<?> saveUser(@RequestBody UserRequest  user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user.toEntity(),user.toEntityClientAnswers()));
     }
     
     
