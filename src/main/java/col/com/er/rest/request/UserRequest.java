@@ -56,7 +56,7 @@ public class UserRequest {
 
                     clientAnswers.setQuestions(questions);
                     clientAnswers.setAnswers(answers);
-                    
+
                     clientAnswerList.add(clientAnswers);
                 });
 
